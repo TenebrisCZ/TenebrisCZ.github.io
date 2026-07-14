@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+  <meta charset="UTF-8">
+  <script>
+    const savedTheme = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+
+    const savedLang = localStorage.getItem('lang');
+    if (savedLang) {
+      document.documentElement.lang = savedLang;
+    }
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ing. Pavel Osinek - ML Engineer</title>
+  <meta name="description" content="Portfolio - Pavel Osinek, ML Engineer specializing in machine learning, computer vision, and AI.">
+  <meta property="og:title" content="Ing. Pavel Osinek - ML Engineer">
+  <meta property="og:description" content="Master's graduate focusing on machine learning, computer vision, and practical model deployment.">
+  <meta property="og:image" content="photo.jpg">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --slate-900: #0F172A;
+      --slate-800: #1E293B;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748B;
+      --slate-400: #94A3B8;
+      --slate-300: #CBD5E1;
+      --slate-200: #E2E8F0;
+      --slate-100: #F1F5F9;
+      --slate-50: #F8FAFC;
+      --blue-700: #1D4ED8;
+      --blue-600: #2563EB;
+      --blue-500: #3B82F6;
+      --blue-400: #60A5FA;
+      --blue-300: #93C5FD;
+      --blue-200: #BFDBFE;
+      --blue-100: #DBEAFE;
+      --blue-50: #EFF6FF;
+      --white: #FFFFFF;
+      --font-sans: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --nav-bg: rgba(255, 255, 255, 0.92);
+      --btn-text: #FFFFFF;
+      --footer-bg: #0F172A;
+    }
+
+    [data-theme="dark"] {
+      --slate-900: #F8FAFC;
+      --slate-800: #F1F5F9;
+      --slate-700: #E2E8F0;
+      --slate-600: #CBD5E1;
+      --slate-500: #94A3B8;
+      --slate-400: #64748B;
+      --slate-300: #475569;
+      --slate-200: #334155;
+      --slate-100: #1E293B;
+      --slate-50: #0F172A;
+      --blue-700: #93C5FD;
+      --blue-600: #60A5FA;
+      --blue-500: #3B82F6;
+      --blue-400: #2563EB;
+      --blue-300: #1D4ED8;
+      --blue-200: #1E3A8A;
+      --blue-100: #172554;
+      --blue-50: #020617;
+      --white: #020617;
+      --nav-bg: rgba(2, 6, 23, 0.92);
+      --btn-text: #0F172A;
+      --footer-bg: #020617;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      color: var(--slate-900);
+      background: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--slate-100);
+      padding: 0 2rem;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--slate-900);
+      letter-spacing: 0.01em;
+      font-family: var(--font-mono);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+    }
+
+    .nav-links a {
+      position: relative;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--slate-500);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--blue-600);
+    }
+
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 2px;
+      background: var(--blue-600);
+      border-radius: 2px;
+    }
+
+    .nav-btn {
+      background: none;
+      border: none;
+      color: var(--slate-500);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.4rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      transition: color 0.15s, background-color 0.15s;
+    }
+
+    .nav-btn:hover {
+      color: var(--blue-600);
+      background: var(--slate-100);
+    }
+
+    .nav-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    :lang(en) .lang-cs { display: none !important; }
+    :lang(cs) .lang-en { display: none !important; }
+
+    /* SECTIONS */
+    section {
+      padding: 5rem 0;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* HERO */
+    #hero {
+      padding: 5rem 0 4rem;
+      background: var(--white);
+    }
+
+    .hero-inner {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+    }
+
+    .hero-photo-wrap {
+      flex-shrink: 0;
+    }
+
+    .hero-photo {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 3px solid var(--blue-100);
+      display: block;
+      transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.1);
+    }
+
+    .hero-photo:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 12px 28px rgba(37, 99, 235, 0.2);
+      border-color: var(--blue-300);
+    }
+
+    /* REVEAL ANIMATIONS */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero-text {
+      flex: 1;
+    }
+
+    .hero-greeting {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--blue-600);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      font-family: var(--font-mono);
+    }
+
+    .hero-name {
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-role {
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--slate-500);
+      margin-bottom: 1.25rem;
+      min-height: 1.8rem;
+    }
+
+    .hero-role span {
+      color: var(--blue-600);
+      font-weight: 500;
+    }
+
+    #typed-role::after {
+      content: '|';
+      animation: blink 0.75s step-end infinite;
+      color: var(--blue-600);
+      margin-left: 1px;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .hero-bio {
+      font-size: 0.93rem;
+      color: var(--slate-500);
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-contacts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-chip {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--slate-600);
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 6px;
+      padding: 0.3rem 0.7rem;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .contact-chip:hover {
+      border-color: var(--blue-500);
+      color: var(--blue-600);
+      background: var(--blue-50);
+    }
+
+    .contact-chip svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--blue-600);
+      color: var(--btn-text);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    .btn-primary:hover {
+      background: #1D4ED8;
+    }
+
+    /* DIVIDER */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--slate-100);
+      margin: 0;
+    }
+
+    /* SECTION HEADER */
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--blue-600);
+      font-family: var(--font-mono);
+      margin-bottom: 0.4rem;
+    }
+
+    .section-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      letter-spacing: -0.02em;
+      margin-bottom: 2.5rem;
+    }
+
+    /* SKILLS */
+    #skills {
+      background: var(--slate-50);
+    }
+
+    .skill-groups {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-group h3 {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--slate-500);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 0.75rem;
+      font-family: var(--font-mono);
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .skill-tag {
+      font-size: 0.78rem;
+      font-weight: 500;
+      background: var(--white);
+      border: 1px solid var(--slate-200);
+      border-radius: 5px;
+      padding: 0.2rem 0.55rem;
+      color: var(--slate-700);
+    }
+
+    .skill-tag.highlight {
+      background: var(--blue-50);
+      border-color: var(--blue-200);
+      color: var(--blue-700);
+    }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .project-card {
+      background: var(--white);
+      border: 1px solid var(--slate-200);
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .project-card:hover {
+      border-color: var(--blue-300);
+      box-shadow: 0 4px 16px rgba(37, 99, 235, 0.07);
+    }
+
+    .project-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--blue-50);
+      color: var(--blue-600);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .project-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .project-title {
+      font-size: 0.97rem;
+      font-weight: 600;
+      color: var(--slate-900);
+      margin-bottom: 0.4rem;
+    }
+
+    .project-desc {
+      font-size: 0.83rem;
+      color: var(--slate-500);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .project-tag {
+      font-size: 0.72rem;
+      font-weight: 500;
+      background: var(--slate-100);
+      color: var(--slate-600);
+      border-radius: 4px;
+      padding: 0.15rem 0.45rem;
+      font-family: var(--font-mono);
+    }
+
+    /* EXPERIENCE */
+    #experience {
+      background: var(--slate-50);
+    }
+
+    .timeline {
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 6px;
+      width: 2px;
+      bottom: 6px;
+      background: var(--slate-200);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 2.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 0;
+      top: 5px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 2.5px solid var(--blue-500);
+      flex-shrink: 0;
+    }
+
+    .tl-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .tl-role {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--slate-900);
+    }
+
+    .tl-company {
+      font-size: 0.85rem;
+      color: var(--blue-600);
+      font-weight: 500;
+      margin-top: 0.1rem;
+    }
+
+    .tl-date {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--slate-400);
+      font-family: var(--font-mono);
+      white-space: nowrap;
+      margin-top: 0.2rem;
+    }
+
+    .tl-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.75rem;
+    }
+
+    .tl-tag {
+      font-size: 0.72rem;
+      color: var(--slate-600);
+      background: var(--white);
+      border: 1px solid var(--slate-200);
+      border-radius: 4px;
+      padding: 0.15rem 0.45rem;
+      font-family: var(--font-mono);
+    }
+
+    /* EDUCATION */
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    .edu-card {
+      background: var(--white);
+      border: 1px solid var(--slate-200);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .edu-degree {
+      font-size: 0.93rem;
+      font-weight: 600;
+      color: var(--slate-900);
+      margin-bottom: 0.25rem;
+    }
+
+    .edu-school {
+      font-size: 0.83rem;
+      font-weight: 500;
+      color: var(--blue-600);
+      margin-bottom: 0.25rem;
+    }
+
+    .edu-years {
+      font-size: 0.78rem;
+      color: var(--slate-400);
+      font-family: var(--font-mono);
+    }
+
+    /* CONTACT */
+    #contact {
+      background: var(--slate-50);
+    }
+    
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      background: var(--white);
+      padding: 2.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--slate-200);
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.05);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--slate-700);
+    }
+
+    .form-control {
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--slate-300);
+      border-radius: 8px;
+      background: var(--slate-50);
+      color: var(--slate-900);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--blue-500);
+      box-shadow: 0 0 0 3px var(--blue-100);
+      background: var(--white);
+    }
+    
+    .contact-text {
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--slate-500);
+      margin-bottom: 2rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .contact-form .btn-primary {
+      justify-content: center;
+      margin-top: 0.5rem;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--footer-bg);
+      color: var(--slate-400);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      font-size: 0.82rem;
+    }
+
+    footer a {
+      color: var(--blue-400);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--blue-300);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      .hero-inner {
+        flex-direction: column;
+        gap: 1.75rem;
+        text-align: center;
+      }
+
+      .hero-contacts {
+        justify-content: center;
+      }
+
+      .hero-bio {
+        margin: 0 auto 1.75rem;
+      }
+
+      .hero-name {
+        font-size: 2rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <span class="nav-name">pavel.osinek</span>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="#skills"><span class="lang-cs">Dovednosti</span><span class="lang-en">Skills</span></a>
+        <a href="#projects"><span class="lang-cs">Projekty</span><span class="lang-en">Projects</span></a>
+        <a href="#experience"><span class="lang-cs">Praxe</span><span class="lang-en">Experience</span></a>
+        <a href="#education"><span class="lang-cs">Vzdělání</span><span class="lang-en">Education</span></a>
+        <a href="#contact"><span class="lang-cs">Kontakt</span><span class="lang-en">Contact</span></a>
+      </div>
+      <button id="lang-toggle" aria-label="Přepnout jazyk" title="Přepnout jazyk" class="nav-btn">EN</button>
+      <button id="theme-toggle" class="nav-btn" aria-label="Přepnout tmavý režim" title="Přepnout tmavý režim">
+        <svg id="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <svg id="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+    </div>
+  </nav>
+  <!-- HERO -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-photo-wrap">
+          <img class="hero-photo" src="photo.jpg" alt="Ing. Pavel Osinek">
+        </div>
+        <div class="hero-text">
+          <div class="hero-greeting"><span class="lang-cs">Zdravím, jsem</span><span class="lang-en">Hi, I'm</span></div>
+          <h1 class="hero-name">Ing. Pavel Osinek</h1>
+          <div class="hero-role">
+            <span id="typed-role"></span>
+          </div>
+          <p class="hero-bio">
+            <span class="lang-cs">Absolvent magisterského studia Informačních technologií (specializace Strojové učení) na FIT VUT Brno. Zaměřuji se na machine learning, počítačové vidění a praktické nasazení modelů. Rád pracuji na projektech s reálným dopadem.</span>
+            <span class="lang-en">Master's graduate in Information Technology (Machine Learning specialization) at FIT BUT. I focus on machine learning, computer vision, and practical model deployment. I enjoy working on projects with real-world impact.</span>
+          </p>
+          <div class="hero-contacts">
+            <a class="contact-chip" href="mailto:osinekpavel@seznam.cz">
+              <svg viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+              </svg> osinekpavel@seznam.cz </a>
+            <a class="contact-chip" href="https://www.linkedin.com/in/pavel-osinek-9a5391291/" target="_blank">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+              </svg> LinkedIn </a>
+            <a class="contact-chip" href="https://github.com/TenebrisCZ" target="_blank">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+              </svg> TenebrisCZ </a>
+            <span class="contact-chip">
+              <svg viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd"
+                  d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                  clip-rule="evenodd" />
+              </svg> Vraclav </span>
+          </div>
+          <a class="btn-primary" href="Pavel-Osinek.pdf" download>
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd"
+                d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                clip-rule="evenodd" />
+            </svg> <span class="lang-cs">Stáhnout životopis</span><span class="lang-en">Download CV</span> </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-label"><span class="lang-cs">Co umím</span><span class="lang-en">What I do</span></div>
+      <h2 class="section-title"><span class="lang-cs">Dovednosti</span><span class="lang-en">Skills</span></h2>
+      <div class="skill-groups">
+        <div class="skill-group">
+          <h3><span class="lang-cs">Programovací jazyky</span><span class="lang-en">Programming languages</span></h3>
+          <div class="skill-tags">
+            <span class="skill-tag highlight">Python</span>
+            <span class="skill-tag highlight">C++</span>
+            <span class="skill-tag">C</span>
+            <span class="skill-tag">TypeScript</span>
+            <span class="skill-tag">SQL</span>
+            <span class="skill-tag">PHP</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>ML / AI</h3>
+          <div class="skill-tags">
+            <span class="skill-tag highlight">PyTorch</span>
+            <span class="skill-tag highlight">Scikit-Learn</span>
+            <span class="skill-tag highlight">TensorFlow</span>
+            <span class="skill-tag">Pandas</span>
+            <span class="skill-tag">NumPy</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Web &amp; Backend</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">React</span>
+            <span class="skill-tag">Node.js</span>
+            <span class="skill-tag">Flask</span>
+            <span class="skill-tag">REST API</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3><span class="lang-cs">Nástroje</span><span class="lang-en">Tools</span></h3>
+          <div class="skill-tags">
+            <span class="skill-tag highlight">Git / GitHub</span>
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">Linux</span>
+            <span class="skill-tag">Excel</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3><span class="lang-cs">Soft skills</span><span class="lang-en">Soft skills</span></h3>
+          <div class="skill-tags">
+            <span class="skill-tag"><span class="lang-cs">Analytické myšlení</span><span class="lang-en">Analytical thinking</span></span>
+            <span class="skill-tag"><span class="lang-cs">Samostatnost</span><span class="lang-en">Independence</span></span>
+            <span class="skill-tag"><span class="lang-cs">Spolehlivost</span><span class="lang-en">Reliability</span></span>
+            <span class="skill-tag"><span class="lang-cs">Týmová práce</span><span class="lang-en">Teamwork</span></span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3><span class="lang-cs">Jazyky</span><span class="lang-en">Languages</span></h3>
+          <div class="skill-tags">
+            <span class="skill-tag highlight"><span class="lang-cs">Čeština (rodilý)</span><span class="lang-en">Czech (Native)</span></span>
+            <span class="skill-tag"><span class="lang-cs">Angličtina (pokročilá)</span><span class="lang-en">English (Advanced)</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-label"><span class="lang-cs">Co jsem vytvořil</span><span class="lang-en">What I've built</span></div>
+      <h2 class="section-title"><span class="lang-cs">Vybrané projekty</span><span class="lang-en">Selected projects</span></h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <div class="project-title"><span class="lang-cs">LLM-řízené CGP pro symbolickou regresi</span><span class="lang-en">LLM-guided CGP for symbolic regression</span></div>
+          <div class="project-desc">
+            <span class="lang-cs">Diplomová práce: integrace velkých jazykových modelů (Gemma 4, Phi 4) do evoluční smyčky kartézského genetického programování. Výsledek: 48,1% redukce mediánu testovací chyby NMSE.</span>
+            <span class="lang-en">Master's thesis: integration of large language models (Gemma 4, Phi 4) into the evolutionary loop of Cartesian Genetic Programming. Result: 48.1% reduction in median test NMSE error.</span>
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">LLM</span>
+            <span class="project-tag">CGP</span>
+            <span class="project-tag">PyTorch</span>
+            <span class="project-tag"><span class="lang-cs">Symbolická regrese</span><span class="lang-en">Symbolic regression</span></span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M7 21h10M12 3v18M3 7l9-4 9 4M4 10h16M4 14h16" />
+            </svg>
+          </div>
+          <div class="project-title"><span class="lang-cs">LZW obrázkový kodek</span><span class="lang-en">LZW image codec</span></div>
+          <div class="project-desc">
+            <span class="lang-cs">C++ implementace obrazového kompresního kodeku postaveného na LZW algoritmu. Obsahuje delta model, adaptivní scanning a variabilní šířku kódů (9–16 bitů). Nejlepší výkon ~1,22 bpp.</span>
+            <span class="lang-en">C++ implementation of an image compression codec based on the LZW algorithm. Features a delta model, adaptive scanning, and variable code width (9–16 bits). Best performance ~1.22 bpp.</span>
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">C++</span>
+            <span class="project-tag">LZW</span>
+            <span class="project-tag"><span class="lang-cs">Komprese obrazu</span><span class="lang-en">Image compression</span></span>
+            <span class="project-tag"><span class="lang-cs">Algoritmy</span><span class="lang-en">Algorithms</span></span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+          </div>
+          <div class="project-title"><span class="lang-cs">Statistické modelování procesů</span><span class="lang-en">Statistical process modeling</span></div>
+          <div class="project-desc">
+            <span class="lang-cs">Analýza přežití (Weibullovo rozdělení) a regresní modely s iterativní eliminací prediktorů v Pythonu. Projekt v rámci předmětu MSP na FIT VUT Brno.</span>
+            <span class="lang-en">Survival analysis (Weibull distribution) and regression models with iterative predictor elimination in Python. Project for the MSP course at FIT BUT.</span>
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">Scikit-Learn</span>
+            <span class="project-tag">Pandas</span>
+            <span class="project-tag"><span class="lang-cs">Statistika</span><span class="lang-en">Statistics</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-label"><span class="lang-cs">Kde jsem pracoval</span><span class="lang-en">Where I've worked</span></div>
+      <h2 class="section-title"><span class="lang-cs">Pracovní zkušenosti</span><span class="lang-en">Experience</span></h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="tl-header">
+            <div>
+              <div class="tl-role"><span class="lang-cs">Asistent prodeje / Závozník</span><span class="lang-en">Sales Assistant / Co-driver</span></div>
+              <div class="tl-company">Kordex system s.r.o.</div>
+            </div>
+            <div class="tl-date">09/2022 – 07/2026</div>
+          </div>
+          <div class="tl-tags">
+            <span class="tl-tag"><span class="lang-cs">Komunikace se zákazníky</span><span class="lang-en">Customer communication</span></span>
+            <span class="tl-tag"><span class="lang-cs">Logistika</span><span class="lang-en">Logistics</span></span>
+            <span class="tl-tag"><span class="lang-cs">Týmová spolupráce</span><span class="lang-en">Teamwork</span></span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="tl-header">
+            <div>
+              <div class="tl-role"><span class="lang-cs">Tester webových aplikací</span><span class="lang-en">Web Application Tester</span></div>
+              <div class="tl-company">GeekCoders, s.r.o.</div>
+            </div>
+            <div class="tl-date">09/2019 – 10/2019</div>
+          </div>
+          <div class="tl-tags">
+            <span class="tl-tag"><span class="lang-cs">Manuální testování</span><span class="lang-en">Manual testing</span></span>
+            <span class="tl-tag"><span class="lang-cs">Dokumentace chyb</span><span class="lang-en">Bug documentation</span></span>
+            <span class="tl-tag">QA</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="tl-header">
+            <div>
+              <div class="tl-role"><span class="lang-cs">IT Specialista (stáž)</span><span class="lang-en">IT Specialist (Internship)</span></div>
+              <div class="tl-company">Iveco Bus Czech Republic a.s.</div>
+            </div>
+            <div class="tl-date">05/2019 – 06/2019</div>
+          </div>
+          <div class="tl-tags">
+            <span class="tl-tag"><span class="lang-cs">Instalace HW/SW</span><span class="lang-en">HW/SW Installation</span></span>
+            <span class="tl-tag"><span class="lang-cs">Technická podpora</span><span class="lang-en">Technical support</span></span>
+            <span class="tl-tag"><span class="lang-cs">Diagnostika</span><span class="lang-en">Diagnostics</span></span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="tl-header">
+            <div>
+              <div class="tl-role"><span class="lang-cs">Asistent logistiky</span><span class="lang-en">Logistics Assistant</span></div>
+              <div class="tl-company">DP WORK s.r.o.</div>
+            </div>
+            <div class="tl-date">08/2018 – 10/2018</div>
+          </div>
+          <div class="tl-tags">
+            <span class="tl-tag"><span class="lang-cs">Administrativa</span><span class="lang-en">Administration</span></span>
+            <span class="tl-tag"><span class="lang-cs">Evidence zásilek</span><span class="lang-en">Shipment tracking</span></span>
+            <span class="tl-tag"><span class="lang-cs">Expedice</span><span class="lang-en">Dispatch</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="container">
+      <div class="section-label"><span class="lang-cs">Kde jsem studoval</span><span class="lang-en">Where I've studied</span></div>
+      <h2 class="section-title"><span class="lang-cs">Vzdělání</span><span class="lang-en">Education</span></h2>
+      <div class="edu-grid">
+        <div class="edu-card">
+          <div class="edu-degree"><span class="lang-cs">Ing. – Strojové učení</span><span class="lang-en">Ing. (MSc) – Machine Learning</span></div>
+          <div class="edu-school">FIT VUT Brno</div>
+          <div class="edu-years">2024 – 2026</div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-degree"><span class="lang-cs">Bc. – Informační technologie</span><span class="lang-en">Bc. (BSc) – Information Technology</span></div>
+          <div class="edu-school">FIT VUT Brno</div>
+          <div class="edu-years">2020 – 2024</div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-degree"><span class="lang-cs">Informační technologie</span><span class="lang-en">Information Technology</span></div>
+          <div class="edu-school">SPŠE Pardubice</div>
+          <div class="edu-years">2016 – 2020</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-label" style="text-align: center;"><span class="lang-cs">Napište mi</span><span class="lang-en">Get in touch</span></div>
+      <h2 class="section-title" style="text-align: center; margin-bottom: 1rem;"><span class="lang-cs">Kontakt</span><span class="lang-en">Contact</span></h2>
+      <p class="contact-text reveal">
+        <span class="lang-cs">Pokud máte zájem o spolupráci, hledáte vývojáře pro svůj projekt nebo si chcete jen vyměnit nápady ohledně AI a strojového učení, neváhejte mi zanechat zprávu.</span>
+        <span class="lang-en">If you are interested in a collaboration, looking for a developer for your project, or just want to chat about AI and machine learning, feel free to drop me a message.</span>
+      </p>
+      
+      <form action="https://formsubmit.co/osinekpavel@seznam.cz" method="POST" class="contact-form reveal">
+        <!-- Zabrání zachytávání spamu (Honeypot) -->
+        <input type="text" name="_honey" style="display:none">
+        <!-- Vypne captcha -->
+        <input type="hidden" name="_captcha" value="false">
+        
+        <div class="form-group">
+          <label for="name"><span class="lang-cs">Jméno</span><span class="lang-en">Name</span></label>
+          <input type="text" id="name" name="name" class="form-control" required placeholder="Vaše jméno">
+        </div>
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" class="form-control" required placeholder="vas@email.cz">
+        </div>
+        <div class="form-group">
+          <label for="message"><span class="lang-cs">Zpráva</span><span class="lang-en">Message</span></label>
+          <textarea id="message" name="message" class="form-control" required placeholder="Napište mi zprávu..."></textarea>
+        </div>
+        <button type="submit" class="btn-primary">
+          <span class="lang-cs">Odeslat zprávu</span><span class="lang-en">Send message</span>
+          <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16" style="margin-left: 0.4rem;">
+            <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </section>
+  <footer>
+    <p>© 2026 Pavel Osinek &nbsp;·&nbsp; <a href="mailto:osinekpavel@seznam.cz">osinekpavel@seznam.cz</a>
+      &nbsp;·&nbsp; <a href="https://github.com/TenebrisCZ" target="_blank">GitHub</a> &nbsp;·&nbsp; <a
+        href="https://www.linkedin.com/in/pavel-osinek-9a5391291/" target="_blank">LinkedIn</a>
+    </p>
+  </footer>
+  <script>
+    const roles = ['ML Engineer', 'Python Developer', 'AI Researcher', 'Data Analyst'];
+    let ri = 0,
+      ci = 0,
+      deleting = false;
+    const el = document.getElementById('typed-role');
+
+    function type() {
+      const word = roles[ri];
+      if (!deleting) {
+        el.textContent = word.slice(0, ++ci);
+        if (ci === word.length) {
+          deleting = true;
+          setTimeout(type, 1800);
+          return;
+        }
+      } else {
+        el.textContent = word.slice(0, --ci);
+        if (ci === 0) {
+          deleting = false;
+          ri = (ri + 1) % roles.length;
+        }
+      }
+      setTimeout(type, deleting ? 60 : 90);
+    }
+    setTimeout(type, 500);
+
+    const langToggle = document.getElementById('lang-toggle');
+
+    function updateLangBtn() {
+      const currentLang = document.documentElement.lang;
+      langToggle.textContent = currentLang === 'cs' ? 'EN' : 'CS';
+      langToggle.setAttribute('title', currentLang === 'cs' ? 'Switch to English' : 'Přepnout do češtiny');
+      langToggle.setAttribute('aria-label', currentLang === 'cs' ? 'Switch to English' : 'Přepnout do češtiny');
+    }
+    updateLangBtn();
+
+    langToggle.addEventListener('click', () => {
+      const currentLang = document.documentElement.lang;
+      const newLang = currentLang === 'cs' ? 'en' : 'cs';
+      document.documentElement.lang = newLang;
+      localStorage.setItem('lang', newLang);
+      updateLangBtn();
+    });
+
+    const themeToggle = document.getElementById('theme-toggle');
+    const iconMoon = document.getElementById('theme-icon-moon');
+    const iconSun = document.getElementById('theme-icon-sun');
+
+    if (document.documentElement.getAttribute('data-theme') === 'dark') {
+      iconMoon.style.display = 'none';
+      iconSun.style.display = 'block';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      let theme = document.documentElement.getAttribute('data-theme');
+      if (theme === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+        iconMoon.style.display = 'block';
+        iconSun.style.display = 'none';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        iconMoon.style.display = 'none';
+        iconSun.style.display = 'block';
+      }
+    });
+
+    // DYNAMIC REVEAL & STAGGER
+    document.querySelectorAll('.hero-photo-wrap, .hero-text, .section-label, .section-title, .skill-group, .project-card, .timeline-item, .edu-card').forEach((el, index) => {
+      el.classList.add('reveal');
+      if (el.classList.contains('skill-group') || el.classList.contains('project-card') || el.classList.contains('edu-card')) {
+        const delay = (index % 3) * 0.1;
+        el.style.transitionDelay = `${delay}s`;
+      }
+    });
+
+    // SCROLL REVEAL OBSERVER
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
+    
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // SCROLL SPY (Active Nav Link)
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    
+    const spyObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${entry.target.id}`) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    }, { threshold: 0.2, rootMargin: "-30% 0px -60% 0px" });
+
+    sections.forEach(sec => spyObserver.observe(sec));
+  </script>
+</body>
+
+</html>
