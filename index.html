@@ -803,7 +803,7 @@
                   clip-rule="evenodd" />
               </svg> Vraclav </span>
           </div>
-          <a class="btn-primary" href="Pavel-Osinek.pdf" download>
+          <a id="cv-link" class="btn-primary" href="resume_cs.pdf" download>
             <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd"
                 d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
@@ -1083,6 +1083,10 @@
       &nbsp;·&nbsp; <a href="https://github.com/TenebrisCZ" target="_blank">GitHub</a> &nbsp;·&nbsp; <a
         href="https://www.linkedin.com/in/pavel-osinek-9a5391291/" target="_blank">LinkedIn</a>
     </p>
+    <p style="margin-top: 0.5rem; color: var(--slate-500);">
+      <span class="lang-cs">Poslední aktualizace: 17. 7. 2026</span>
+      <span class="lang-en">Last updated: July 17, 2026</span>
+    </p>
   </footer>
   <script>
     const roles = ['ML Engineer', 'Python Developer', 'AI Researcher', 'Data Analyst'];
@@ -1118,6 +1122,11 @@
       langToggle.textContent = currentLang === 'cs' ? 'EN' : 'CS';
       langToggle.setAttribute('title', currentLang === 'cs' ? 'Switch to English' : 'Přepnout do češtiny');
       langToggle.setAttribute('aria-label', currentLang === 'cs' ? 'Switch to English' : 'Přepnout do češtiny');
+
+      const cvLink = document.getElementById('cv-link');
+      if (cvLink) {
+        cvLink.href = currentLang === 'cs' ? 'resume_cs.pdf' : 'resume_en.pdf';
+      }
     }
     updateLangBtn();
 
